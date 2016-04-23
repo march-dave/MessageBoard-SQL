@@ -27,7 +27,33 @@ function removelist(event) {
 
   console.log('ld', id);
 
+  var url = 'api/cars/'+ id;
+  $.ajax({
+    url: url,
+    type: 'DELETE'
+  })
+  .done(function(data) {
+      var $list = dataList(data);
+  })
+  .fail(function (err) {
+    console.log(err);
+  });
   renderList();
+}
+
+function renderList() {
+  // $.post('/api/bananas/:id', {varitety: 'cavendish'})
+  // .done()
+  var url = 'api/cars';
+  $.ajax({
+    url: url,
+  })
+  .done(function(data) {
+      var $list = dataList(data);
+  })
+  .fail(function (err) {
+    console.log(err);
+  });
 }
 
 function eventSplit(event) {
@@ -145,20 +171,20 @@ function updateContact(event, index) {
 
 }
 
-function renderList() {
-  // $.post('/api/bananas/:id', {varitety: 'cavendish'})
-  // .done()
-  var url = 'api/cars';
-  $.ajax({
-    url: url,
-  })
-  .done(function(data) {
-      var $list = dataList(data);
-  })
-  .fail(function (err) {
-    console.log(err);
-  });
-}
+// function renderList() {
+//   // $.post('/api/bananas/:id', {varitety: 'cavendish'})
+//   // .done()
+//   var url = 'api/cars';
+//   $.ajax({
+//     url: url,
+//   })
+//   .done(function(data) {
+//       var $list = dataList(data);
+//   })
+//   .fail(function (err) {
+//     console.log(err);
+//   });
+// }
 
 function dataList(data) {
   $('table').empty();
