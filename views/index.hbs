@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="X-UA-Compatible" content="IE=edge">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <script src='main.js'></script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class='containter'>
+
+  <div class="container-fluid">
+  	<h3>List</h3>
+  	<div class="table-responsive">
+  		<table class="table table-striped">
+  			<thead>
+  				<tr>
+  					<th>Image</th>
+  					<th>Name</th>
+  					<th>Phone</th>
+  				</tr>
+  			</thead>
+  			<tbody>
+  			</tbody>
+  		</table>
+  	</div>
+
+  	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="#modal">Add</button>
+  	<!-- Modal -->
+  		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  		  <div class="modal-dialog" role="document">
+  		    <div class="modal-content">
+  		      <div class="modal-header">
+  		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  		        <h4 class="modal-title" id="myModalLabel">Contact</h4>
+  		      </div>
+  		      <div class="modal-body" style="padding: 40px 100px">
+
+  			      <div class="form-group">
+  			      	<label for="exampleInputName2">Image</label>
+  			      	<input type="text" class="form-control" id="image" placeholder="Image Url">
+  			      </div>
+  			      <div class="form-group">
+  			      	<label for="exampleInputName2">Name</label>
+  			      	<input type="text" class="form-control" id="name" placeholder="Jane Doe">
+  			      </div>
+  			      <div class="form-group">
+  			      	<label for="exampleInputName2">Phone</label>
+  			      	<input type="text" class="form-control" id="phone" placeholder="415-111-1112">
+  			      </div>
+  			      <div class="form-group">
+  			      	<label for="exampleInputName2">Address</label>
+  			      	<input type="text" class="form-control" id="address" placeholder="123 Address">
+  			      </div>
+
+  			      <div class="form-group">
+  			      	<label for="exampleInputName2">Email</label>
+  			      	<input type="text" class="form-control" id="email" placeholder="abc@abc.com">
+  			      </div>
+  			      <div class="form-group">
+  			      	<label for="exampleInputName2">Birthday</label>
+  			      	<input type="text" class="form-control" id="birthday" placeholder="April 1, 2001">
+  			      </div>
+  			      <div class="form-group">
+  			      	<label for="exampleInputName2">Favorite</label>
+  			      	<input type="checkbox" id="favorite" checked data-toggle="toggle">
+
+  			      </div>
+
+  		      </div>
+
+  		      <div class="modal-footer">
+  		        <button type="button" class="btn btn-default" data-dismiss="modal" id="btnSave">Save</button>
+  		        <button type="button" class="btn btn-default" data-dismiss="modal" id="btnUpdate">Update</button>
+  		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  		      </div>
+  		    </div>
+  		  </div>
+  		</div>
+
+  </div>
+
+  <!--
+  <div class="entry">
+    <h1>{{title}}</h1>
+    <div class="body">
+      {{body}}
+    </div>
+  </div> -->
+
+<button>Button on Click me!!!</button>
+
+
+</div>
+
+</body>
+</html>

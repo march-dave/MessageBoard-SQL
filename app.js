@@ -2,6 +2,7 @@
 
 const PORT = process.env.PORT || 3000;
 var express = require('express');
+var path = require('path');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var app = express();
@@ -12,13 +13,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static('public'));
 
-app.get('/', (req, res) => {
-  res.send('GET /');
-});
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
 
-// app.get('/', (req, res) => {
-//   res.send(clogs);
-// });
+app.get('/', (req, res) => {
+  // res.send('GET /');
+  res.render('index', {title: '' , body: "Body"});
+});
 
 app.use('/api', require('./routes/api'));
 app.use('/clogs', require('./routes/clogs'));
