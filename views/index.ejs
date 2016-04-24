@@ -23,18 +23,35 @@
   		<table class="table table-striped">
   			<thead>
   				<tr>
-  					<th>Image</th>
-  					<th>Name</th>
-  					<th>Phone</th>
+  					<th>ID</th>
+  					<th>Make</th>
+  					<th>Model</th>
+  					<th>Year</th>
   				</tr>
   			</thead>
-  			<tbody>
+  			<tbody class='list'>
+
+          <% for(var i = 0; i < cars.length; i++) { %>
+             <tr data-id=<%=cars[i].id%>  >
+               <td><%= cars[i].id %></td>
+               <td><%= cars[i].make %></td>
+               <td><%= cars[i].model %></td>
+               <td><%= cars[i].year %></td>
+             </tr>
+           <%  }  %>
+
+          <tr class='template'>
+            <td class='id'></td>
+            <td class='make'></td>
+            <td class='model'></td>
+            <td class='year'></td>
+          </tr>
   			</tbody>
   		</table>
   	</div>
 
   	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="#modal">Add</button>
-  	<!-- Modal -->
+
   		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   		  <div class="modal-dialog" role="document">
   		    <div class="modal-content">
@@ -45,36 +62,17 @@
   		      <div class="modal-body" style="padding: 40px 100px">
 
   			      <div class="form-group">
-  			      	<label for="exampleInputName2">Image</label>
-  			      	<input type="text" class="form-control" id="image" placeholder="Image Url">
+  			      	<label for="exampleInputName2">Make</label>
+  			      	<input type="text" class="form-control" id="make" placeholder="BMW">
   			      </div>
   			      <div class="form-group">
-  			      	<label for="exampleInputName2">Name</label>
-  			      	<input type="text" class="form-control" id="name" placeholder="Jane Doe">
+  			      	<label for="exampleInputName2">Model</label>
+  			      	<input type="text" class="form-control" id="model" placeholder="M3">
   			      </div>
   			      <div class="form-group">
-  			      	<label for="exampleInputName2">Phone</label>
-  			      	<input type="text" class="form-control" id="phone" placeholder="415-111-1112">
+  			      	<label for="exampleInputName2">Year</label>
+  			      	<input type="text" class="form-control" id="year" placeholder="2001">
   			      </div>
-  			      <div class="form-group">
-  			      	<label for="exampleInputName2">Address</label>
-  			      	<input type="text" class="form-control" id="address" placeholder="123 Address">
-  			      </div>
-
-  			      <div class="form-group">
-  			      	<label for="exampleInputName2">Email</label>
-  			      	<input type="text" class="form-control" id="email" placeholder="abc@abc.com">
-  			      </div>
-  			      <div class="form-group">
-  			      	<label for="exampleInputName2">Birthday</label>
-  			      	<input type="text" class="form-control" id="birthday" placeholder="April 1, 2001">
-  			      </div>
-  			      <div class="form-group">
-  			      	<label for="exampleInputName2">Favorite</label>
-  			      	<input type="checkbox" id="favorite" checked data-toggle="toggle">
-
-  			      </div>
-
   		      </div>
 
   		      <div class="modal-footer">

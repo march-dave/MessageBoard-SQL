@@ -13,13 +13,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static('public'));
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+// app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
-app.get('/', (req, res) => {
+// app.get('/', (req, res) => {
   // res.send('GET /');
-  res.render('index', {title: '' , body: "Body"});
-});
+  // res.render('index', {title: '' , body: "Body"});
+// });
+
+app.get('/', require('./routes/index'));
 
 app.use('/api', require('./routes/api'));
 app.use('/clogs', require('./routes/clogs'));

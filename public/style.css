@@ -7,6 +7,11 @@ body{
 }
 
 
+.template {
+  display: none;
+}
+
+
 /*table {
   widows: 10px;
   margine: 10px;

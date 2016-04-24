@@ -13,13 +13,6 @@ router.get('/', (req, res) => {
   });
 });
 
-router.post('/', (req, res) => {
-  Car.create(req.body, err => {
-    if(err) return res.status(400).send(err);
-    res.send();
-  })
-});
-
 router.get('/:id', (req, res) => {
 
   var id = req.params.id;
@@ -28,6 +21,13 @@ router.get('/:id', (req, res) => {
     if(err || !cars) return res.status(400).send(err || 'Car not found.');
     res.send(cars);
   });
+});
+
+router.post('/', (req, res) => {
+  Car.create(req.body, err => {
+    if(err) return res.status(400).send(err);
+    res.send();
+  })
 });
 
 // delete

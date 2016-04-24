@@ -5,8 +5,11 @@ $(document).ready(init);
 function init() {
 
   // $('button').on('click', getList);
-  $('table').on('click', 'button', removelist);
-  renderList();
+  // $('table').on('click', 'button', removelist);
+  // $('table').on('click', 'button', updateList);
+  // $('table').on('click', 'button', getItem);
+  $('table').on('click', openModel);
+  // renderList();
   //
 
 	// renderList();
@@ -20,7 +23,69 @@ function init() {
 	// })
 }
 
+function openModel(event) {
+
+  $('#myModal').modal('show');
+
+  console.log('22222', $(event.target).closest('tr').children(0)[0].textContent);
+  console.log('22222', $(event.target).closest('tr').children(0)[1].textContent);
+  console.log('22222', $(event.target).closest('tr').children(0)[2].textContent);
+  console.log('22222', $(event.target).closest('tr').children(0)[3].textContent);
+
+  var id = $(event.target).closest('tr').children(0)[0].textContent;
+  var make = $(event.target).closest('tr').children(0)[1].textContent;
+  var model = $(event.target).closest('tr').children(0)[2].textContent;
+  var year = $(event.target).closest('tr').children(0)[3].textContent;
+
+// var id = $(this).parent().parent().children()[0].textContent;
+  // var make = $(this).parent().parent().children()[1].textContent;
+  // var model = $(this).parent().parent().children()[2].textContent;
+  // var year = $(this).parent().parent().children()[3].textContent;
+  //
+  // console.log('id', id);
+  // console.log('id', make);
+  // console.log('id', model);
+  // console.log('id', year);
+}
+
 function removelist(event) {
+
+  var index = $(this).closest('tr').index();
+  var url = 'api/cars/'+ id;
+  $.ajax({
+  })
+  .done(function(data) {
+      var $list = dataList(data);
+  })
+  .fail(function (err) {
+    console.log(err);
+  });
+  renderList();
+}
+
+function getItem() {
+
+    // localhost:3000/api/cars/a509e55f-a352-4d26-8ce2-d4b5f6db7b81
+    // var index = $(this).closest('tr').index();
+    var id = $(this).parent().parent().children()[0].textContent;
+
+    var url = 'api/cars/'+ id;
+    $.ajax({
+      url: url,
+      type: 'GET'
+    })
+    .done(function(data) {
+        var $list = dataList(data);
+        console.log('$list', $list);
+        console.log('data', data);
+    })
+    .fail(function (err) {
+      console.log(err);
+    });
+    renderList();
+}
+
+function updateList(event) {
 
   var index = $(this).closest('tr').index();
   var id = $(this).parent().parent().children()[0].textContent;
@@ -30,7 +95,7 @@ function removelist(event) {
   var url = 'api/cars/'+ id;
   $.ajax({
     url: url,
-    type: 'DELETE'
+    type: 'PUT'
   })
   .done(function(data) {
       var $list = dataList(data);
@@ -123,19 +188,6 @@ function addContact() {
   renderList();
 }
 
-function removeContact(event) {
-  var index = $(this).closest('tr').index();
-  var contactList = ContactStorage.get();
-  contactList.splice(index, 1);
-  ContactStorage.write(contactList);
-
-  renderList();
-}
-
-
-
-
-
 var g_index = -1;
 function updateContact(event, index) {
   // var index = $(this).index();
@@ -198,14 +250,16 @@ function dataList(data) {
     var $make = $('<td>').text(data[i].make);
     var $model = $('<td>').text(data[i].model);
     var $year = $('<td>').text(data[i].year);
-    var $button = $('<td>').append('<button>Delete').addClass('btnDelete');
+    var $buttonU = $('<td>').append('<button>Update').addClass('btnUpdate');
+    var $buttonD = $('<td>').append('<button>Delete').addClass('btnDelete');
 
     array.push($list);
     array.push($id);
     array.push($make);
     array.push($model);
     array.push($year);
-    array.push($button);
+    array.push($buttonU);
+    array.push($buttonD);
 
     $list.append(array);
     $('table').append($list);
