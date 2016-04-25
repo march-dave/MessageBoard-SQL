@@ -14,9 +14,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-
   var id = req.params.id;
-
   Car.findById(id, function(err, cars) {
     if(err || !cars) return res.status(400).send(err || 'Car not found.');
     res.send(cars);
@@ -24,17 +22,15 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  Car.create(req.body, err => {
+  Car.create(req.body, (err, car) => {
     if(err) return res.status(400).send(err);
-    res.send();
+    res.send(car);
   })
 });
 
 // delete
 router.delete('/:id', (req, res) => {
-
   var id = req.params.id;
-
   Car.removeById(id, function(err, cars) {
     if(err) return res.status(400).send(err);
     res.send(cars);
@@ -43,9 +39,7 @@ router.delete('/:id', (req, res) => {
 
 // update
 router.put('/:id', (req, res) => {
-
   var id = req.params.id;
-
   Car.update(id, req.body, (err, car) => {
       if(err) return res.status(400).send(err);
       res.send(car);

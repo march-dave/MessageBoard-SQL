@@ -3,53 +3,136 @@
 $(document).ready(init);
 
 function init() {
-
-  // $('button').on('click', getList);
-  // $('table').on('click', 'button', removelist);
-  // $('table').on('click', 'button', updateList);
-  // $('table').on('click', 'button', getItem);
-  $('table').on('click', openModel);
-  // renderList();
-  //
-
-	// renderList();
-  //
-	// $('table').on('click', '.btnDelete', eventSplit);
-	// $('table').on('click', '.contactList', eventSplit);
-	// $('#btnUpdate').on('click', saveContact);
-  //
-	// $('#myModal').on('hidden.bs.modal', function (e) {
-  //   $(this).find('input,textarea,select').val('').end();
-	// })
+  // $('table').on('click', openModel);
+  // $('form.submitform').submit(submitCar);
+  $('form.submitform').submit(submitNewCar);
+  $('.carList').on('click', '.isDelete', deleteCar);
 }
 
-function openModel(event) {
+function deleteCar(e) {
 
-  $('#myModal').modal('show');
+  var id = $(this).parent().parent().children()[0].textContent;
+  var url = `api/cars/${id}`;
+  $.ajax({
+    url: url,
+    type: 'DELETE'
+  })
+  .done(function(data) {
+    $(`td:contains(${id})`).parent().remove();
 
-  console.log('22222', $(event.target).closest('tr').children(0)[0].textContent);
-  console.log('22222', $(event.target).closest('tr').children(0)[1].textContent);
-  console.log('22222', $(event.target).closest('tr').children(0)[2].textContent);
-  console.log('22222', $(event.target).closest('tr').children(0)[3].textContent);
+    console.log('data', data);
 
-  var id = $(event.target).closest('tr').children(0)[0].textContent;
-  var make = $(event.target).closest('tr').children(0)[1].textContent;
-  var model = $(event.target).closest('tr').children(0)[2].textContent;
-  var year = $(event.target).closest('tr').children(0)[3].textContent;
+  })
+  .fail(function (err) {
+    console.log(err);
+  });
+}
 
-// var id = $(this).parent().parent().children()[0].textContent;
-  // var make = $(this).parent().parent().children()[1].textContent;
-  // var model = $(this).parent().parent().children()[2].textContent;
-  // var year = $(this).parent().parent().children()[3].textContent;
+function submitNewCar(e) {
+  e.preventDefault();
+
+  var make = $('#make').val();
+  var model = $('#model').val();
+  var year = $('#year').val();
+
+  var car = {
+    make: make,
+    model: model,
+    year: year
+  }
+
+  var url = 'api/cars';
+  $.ajax({
+    url: url,
+    type: 'POST',
+    data: car
+  })
+  .done(function(data) {
+
+     var $car = $('.template').clone();
+     $car.removeClass('template');
+     $car.find('.id').text(data.id);
+     $car.find('.make').text(data.make);
+     $car.find('.model').text(data.model);
+     $car.find('.year').text(data.year);
+
+    //  $car.data('id', data);
+     $('.carList').append($car);
+
+    console.log('data', data);
+
+     $('.modal').modal('hide');
+
+  })
+  .fail(function (err) {
+    console.log(err);
+  });
+}
+
+// Update
+function submitCar(e) {
+  e.preventDefault();
+
+  var id = $('#id').val();
+  var make = $('#make').val();
+  var model = $('#model').val();
+  var year = $('#year').val();
+
+  var car = {
+    id: id,
+    make: make,
+    model: model,
+    year: year
+  }
+
+  // console.log('car', car);
+
+  var url = `api/cars/${id}`;
+  $.ajax({
+    url: url,
+    type: 'PUT',
+    data: car
+  })
+  .done(function(data) {
+  // var $list = dataList(data);
+
+
+
+  // var id = $(this).parent().parent().children()[0].textContent;
+  // var url = `api/cars/${id}`;
   //
-  // console.log('id', id);
-  // console.log('id', make);
-  // console.log('id', model);
-  // console.log('id', year);
+  // $(`td:contains(${id})`).parent().remove();
+  // $(`td:contains(${id})`).parent().remove();
+  // $(`td:contains(${id})`).parent().remove();
+  // $(`td:contains(${id})`).parent().remove();
+
+
+
+
+
+
+   $('.modal').modal('hide');
+
+  })
+  .fail(function (err) {
+    console.log(err);
+  });
+}
+
+function openModel(e) {
+  $('#myModal').modal('show');
+  var id = $(e.target).closest('tr').children(0)[0].textContent;
+  var make = $(e.target).closest('tr').children(0)[1].textContent;
+  var model = $(e.target).closest('tr').children(0)[2].textContent;
+  var year = $(e.target).closest('tr').children(0)[3].textContent;
+
+  $('#id').val(id);
+  $('#make').val(make);
+  $('#model').val(model);
+  $('#year').val(year);
 }
 
 function removelist(event) {
-
   var index = $(this).closest('tr').index();
   var url = 'api/cars/'+ id;
   $.ajax({
@@ -169,57 +252,6 @@ function saveContact() {
   $('#btnUpdate').hide();
 
 	addContact();
-
-}
-
-function addContact() {
-
-  var contactList = ContactStorage.get();
-	if (g_index > 0) {
-		// Update
-		contactList.splice(g_index, 1, contactArray);
-	  g_index = -1;
-
-	} else {
-	  contactList.push(contactArray);
-	}
-
-  ContactStorage.write(contactList);
-  renderList();
-}
-
-var g_index = -1;
-function updateContact(event, index) {
-  // var index = $(this).index();
-  var index = index;
-
-  var contactList = ContactStorage.get();
-
-  g_index = index;
-
-  var array = contactList[index];
-
-	$('#image').val(array[0]);
-	$('#name').val(array[1]);
-	$('#phone').val(array[2]);
-	$('#address').val(array[3]);
-	$('#email').val(array[4]);
-	$('#birthday').val(array[5]);
-	$('#favorite').val(array[6]);
-
-	contactList.splice(index, 1, contactArray);
-  ContactStorage.write(contactList);
-
-  renderList();
-
-  $('#myModal').modal();
-
-  if (index > 0) {
-	  $('#btnSave').hide();
-	  $('#btnUpdate').show();
-  } else {
-	  $('#btnUpdate').hide();
-  }
 
 }
 

@@ -6,11 +6,13 @@ body{
   width: 100px;
 }
 
-
 .template {
   display: none;
 }
 
+#id {
+  display: none;
+}
 
 /*table {
   widows: 10px;
